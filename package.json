@@ -43,5 +43,7 @@
     "start-demo": "stylus -w src/index.styl -o src/index.css & start-storybook -p 9009 -s demo",
     "build-demo": "stylus src/index.styl -o src/index.css && build-storybook -s demo -o .out",
     "deploy-demo": "npm run build && storybook-to-ghpages"
-  }
+  },
+  "author": "Synapse Studios",
+  "license": "MIT"
 }
