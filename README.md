@@ -4,7 +4,7 @@ A combined implementation of [React-Dropzone](https://github.com/okonet/react-dr
 
 ## Demo
 
-A demo is available at *TODO*
+A demo is available at https://synapsestudios.github.io/react-drop-n-crop/
 
 OR
 
@@ -79,26 +79,26 @@ canvasWidth: PropTypes.string, // default: '100%'
 `className` is a `string` for the outermost container class name.
 
 ```js
-className: PropTypes.string, // default: '100%'
+className: PropTypes.string, // default: ''
 ```
 
 #### cropperOptions:
 
-`cropperOptions` is an `object` for customizing the cropper component.
+`cropperOptions` is an `object` for customizing the cropper component. Lists of available options can be found here: https://github.com/roadmanfong/react-cropper
 ```js
-cropperOptions: PropTypes.object, // default: {}
+cropperOptions: PropTypes.object, // default: {guides: true, viewMode: 0, autoCropArea: 1}
 ```
 
-#### fileSize:
+#### maxFileSize:
 
-`fileSize` is a maximum `number` (in bytes) for file upload validation.
+`maxFileSize` is a maximum `number` (in bytes) for file upload validation.
 ```js
-fileSize: PropTypes.object, // default: 3145728
+maxFileSize: PropTypes.object, // default: 3145728
 ```
 
-#### fileTypes:
+#### allowedFileTypes:
 
-`fileTypes` is an `array` (of strings) for file upload validation.
+`allowedFileTypes` is an `array` (of strings) of valid MIME types for file upload validation.
 ```js
-fileTypes: PropTypes.array, // default: ['image/jpeg', 'image/jpg', 'image/png']
+allowedFileTypes: PropTypes.array, // default: ['image/jpeg', 'image/jpg', 'image/png']
 ```
