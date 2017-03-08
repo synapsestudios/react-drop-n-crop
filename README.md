@@ -10,15 +10,19 @@ OR
 
 To run a demo on your own computer:
 * Clone this repository
-* `npm install`
+* `yarn install`
 * `npm run storybook`
 * Visit http://localhost:9009/
 
 ## Usage
 
-#### Installing via `npm`
+#### Installing
 ```js
+// npm
 npm install --save @synapsestudios/react-crop-n-drop
+
+// yarn
+yarn add @synapsestudios/react-crop-n-drop
 ```
 
 #### Importing JS
