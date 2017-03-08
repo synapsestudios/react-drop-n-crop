@@ -19,15 +19,15 @@ To run a demo on your own computer:
 #### Installing
 ```js
 // npm
-npm install --save @synapsestudios/react-crop-n-drop
+npm install --save @synapsestudios/react-drop-n-crop
 
 // yarn
-yarn add @synapsestudios/react-crop-n-drop
+yarn add @synapsestudios/react-drop-n-crop
 ```
 
 #### Importing JS
 ```js
-import DropNCrop from '@synapsestudios/react-crop-n-drop';
+import DropNCrop from '@synapsestudios/react-drop-n-crop';
 ```
 
 #### Using JSX
@@ -42,14 +42,14 @@ import DropNCrop from '@synapsestudios/react-crop-n-drop';
 #### Importing CSS
 Import the default styles (from the demo)
 ```js
-import '@synapsestudios/react-crop-n-drop/lib/react-drop-n-crop.css';
+import '@synapsestudios/react-drop-n-crop/lib/react-drop-n-crop.css';
 ```
 
 OR
 
 If you are using Stylus you can import the .styl file into your build:
 ```styl
-@import '@synapsestudios/react-crop-n-drop/lib/react-drop-n-crop.styl';
+@import '@synapsestudios/react-drop-n-crop/lib/react-drop-n-crop.styl';
 ```
 
 ## API
