@@ -130,5 +130,5 @@ To run the project on your own computer:
 * Clone this repository
 * `yarn install` or `npm install`
 * `yarn run storybook` or `npm run storybook`
-* Visit http://localhost:9009/
+* Visit http://localhost:5000/
 * Changes made to files in the `src` directory should immediately compile and be visible in your browser.
