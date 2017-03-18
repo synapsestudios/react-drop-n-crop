@@ -158,7 +158,11 @@ class DropNCrop extends Component {
                         Drag-n-drop a file or click to add an image
                       </div>
                       <div className="dropzone-instructions--sub">
-                        Accepted file types: .jpg, .jpeg, .png
+                        Accepted file types:
+                        {' '}
+                        {this.props.allowedFileTypes
+                          .map(mimeType => `.${mimeType.split('/')[1]}`)
+                          .join(', ')}
                       </div>
                       <div className="dropzone-instructions--sub">
                         Max file size: {bytesToSize(this.props.maxFileSize)}
