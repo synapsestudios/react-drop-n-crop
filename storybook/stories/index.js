@@ -6,7 +6,7 @@ import '../../styles/index.css';
 
 storiesOf('<DropNCrop />', module).add('Default', () => (
   <div>
-    <h1>React Drop-n-Crop</h1>
+    <h1>react-drop-n-crop</h1>
     <DropNCrop
       onSave={fileBlob => {
         action('fileBlob')(fileBlob);

@@ -1,10 +1,13 @@
 {
   "name": "@synapsestudios/react-drop-n-crop",
   "version": "0.0.1",
-  "description": "A combined implementation of React-Dropzone and React-Cropper",
+  "description": "A combined implementation of react-dropzone and react-cropper",
   "repository": {
     "type": "git",
-    "url": "git@github.com:synapsestudios/react-drop-n-crop.git"
+    "url": "https://github.com/synapsestudios/react-drop-n-crop.git"
+  },
+  "bugs": {
+    "url": "https://github.com/synapsestudios/react-drop-n-crop/issues"
   },
   "author": "Synapse Studios",
   "license": "MIT",

@@ -107,7 +107,7 @@ allowedFileTypes: PropTypes.array, // default: ['image/jpeg', 'image/jpg', 'imag
 ```
 
 ### Stylus Variables
-React Drop-n-Crop comes with a set of stylus variables that can be overridden to add your own project-specific theming, as shown below:
+react-drop-n-crop comes with a set of stylus variables that can be overridden to add your own project-specific theming, as shown below:
 
 ```styl
 /* Theming by overriding default stylus variables with your projects colors */
