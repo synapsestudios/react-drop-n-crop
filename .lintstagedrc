@@ -1,0 +1,7 @@
+{
+  "src/**/*.js": [
+    "precommit-lint",
+    "precommit-prettier",
+    "git add"
+  ]
+}

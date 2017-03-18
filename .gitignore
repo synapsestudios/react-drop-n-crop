@@ -5,7 +5,7 @@
 
 # production
 /lib
-.out
+/demo
 
 # misc
 .DS_Store
