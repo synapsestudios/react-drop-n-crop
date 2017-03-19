@@ -8,7 +8,7 @@ storiesOf('<DropNCrop />', module).add('Default', () => (
   <div>
     <h1>react-drop-n-crop</h1>
     <DropNCrop
-      onSave={fileBlob => {
+      onChange={fileBlob => {
         action('fileBlob')(fileBlob);
       }}
     />
@@ -16,7 +16,7 @@ storiesOf('<DropNCrop />', module).add('Default', () => (
     <pre>
       {
         `<DropNCrop
-  onSave={(fileBlob) => {
+  onChange={(fileBlob) => {
     console.log(fileBlob);
   }}
 />`

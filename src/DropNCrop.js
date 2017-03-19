@@ -18,7 +18,7 @@ class DropNCrop extends Component {
     cropperOptions: PropTypes.object,
     instructions: PropTypes.node,
     maxFileSize: PropTypes.number,
-    onSave: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
     onCancel: PropTypes.func,
   };
 
@@ -64,7 +64,7 @@ class DropNCrop extends Component {
     return null;
   };
 
-  onSave = e => {
+  onChange = e => {
     e.preventDefault();
 
     const { result, filename } = this.state;
@@ -74,8 +74,8 @@ class DropNCrop extends Component {
       file = dataUrlToFile(result, filename);
     }
 
-    if (this.props.onSave) {
-      return this.props.onSave(file);
+    if (this.props.onChange) {
+      return this.props.onChange(file);
     }
 
     return null;
@@ -184,7 +184,7 @@ class DropNCrop extends Component {
             ? <button
                 type="button"
                 className="button button--save"
-                onClick={this.onSave}
+                onClick={this.onChange}
               >
                 Save & Upload
               </button>

@@ -29,7 +29,7 @@ import DropNCrop from '@synapsestudios/react-drop-n-crop';
 #### Using JSX
 ```jsx
 <DropNCrop
-  onSave={(file) => {
+  onChange={(file) => {
     console.log(file);
   }}
 />
@@ -55,11 +55,11 @@ If you are using Stylus you can import the .styl file into your build:
 
 ### `Props`
 
-#### onSave: (required)
+#### onChange: (required)
 
-`onSave` is the callback function necessary to update the parent component with the final cropped image file. `onSave` receives a `File` object as an argument.
+`onChange` is the callback function necessary to update the parent component with the final cropped image file. `onChange` receives a `File` object as an argument.
 ```js
-onSave: PropTypes.func.isRequired,
+onChange: PropTypes.func.isRequired,
 ```
 
 #### canvasHeight:
