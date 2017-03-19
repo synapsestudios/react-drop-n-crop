@@ -1,6 +1,6 @@
 {
   "name": "@synapsestudios/react-drop-n-crop",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A combined implementation of react-dropzone and react-cropper",
   "repository": {
     "type": "git",
