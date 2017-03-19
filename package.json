@@ -1,6 +1,6 @@
 {
   "name": "@synapsestudios/react-drop-n-crop",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A combined implementation of react-dropzone and react-cropper",
   "repository": {
     "type": "git",
@@ -47,18 +47,18 @@
   },
   "scripts": {
     "clean": "rm -rf lib && rm -rf demo",
-    "build": "yarn run clean && babel src -d lib && yarn run build-stylus",
-    "start": "yarn run storybook",
-    "storybook": "yarn run stylus & start-storybook -p 5000 -s storybook",
-    "build-storybook": "yarn run watch-stylus && build-storybook -s storybook -o demo",
-    "deploy-storybook": "yarn run build && storybook-to-ghpages",
-    "stylus": "yarn run watch-stylus",
+    "build": "npm run clean && babel src -d lib && npm run build-stylus",
+    "start": "npm run storybook",
+    "storybook": "npm run stylus & start-storybook -p 5000 -s storybook",
+    "build-storybook": "npm run watch-stylus && build-storybook -s storybook -o demo",
+    "deploy-storybook": "npm run build && storybook-to-ghpages",
+    "stylus": "npm run watch-stylus",
     "watch-stylus": "stylus -w styles/index.styl -u autoprefixer-stylus -c -o styles/index.css",
     "build-stylus": "stylus styles/index.styl -o lib/react-drop-n-crop.css && stylus styles/index.styl -c -u autoprefixer-stylus -o lib/react-drop-n-crop.min.css && cp styles/index.styl lib/react-drop-n-crop.styl",
     "lint": "eslint src",
     "precommit": "lint-staged",
     "precommit-lint": "eslint",
     "precommit-prettier": "prettier --single-quote --trailing-comma all --write",
-    "prepublish": "yarn run lint && yarn run build"
+    "prepublish": "npm run lint && npm run build"
   }
 }
