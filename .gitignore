@@ -5,7 +5,7 @@
 
 # production
 /lib
-/demo
+/.out
 /styles/*.css
 
 # misc

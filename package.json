@@ -46,19 +46,19 @@
     "react-dom": "^15.0.0"
   },
   "scripts": {
-    "clean": "rm -rf lib && rm -rf demo",
+    "clean": "rm -rf lib && rm -rf .out",
     "build": "npm run clean && babel src -d lib && npm run build-stylus",
-    "start": "npm run storybook",
-    "storybook": "npm run stylus & start-storybook -p 5000 -s storybook",
-    "build-storybook": "npm run watch-stylus && build-storybook -s storybook -o demo",
-    "deploy-storybook": "npm run build && storybook-to-ghpages",
-    "stylus": "npm run watch-stylus",
-    "watch-stylus": "stylus -w styles/index.styl -u autoprefixer-stylus -c -o styles/index.css",
     "build-stylus": "stylus styles/index.styl -o lib/react-drop-n-crop.css && stylus styles/index.styl -c -u autoprefixer-stylus -o lib/react-drop-n-crop.min.css && cp styles/index.styl lib/react-drop-n-crop.styl",
     "lint": "eslint src",
     "precommit": "lint-staged",
     "precommit-lint": "eslint",
     "precommit-prettier": "prettier --single-quote --trailing-comma all --write",
-    "prepublish": "npm run lint && npm run build"
+    "prepublish": "npm run lint && npm run build",
+    "start": "npm run storybook",
+    "storybook": "npm run storybook-watch-stylus & start-storybook -p 5000 -s storybook",
+    "storybook-watch-stylus": "stylus -w styles/index.styl -u autoprefixer-stylus -c -o styles/index.css",
+    "storybook-build": "npm run storybook-build-stylus && build-storybook -s storybook -o .out",
+    "storybook-build-stylus": "stylus styles/index.styl -u autoprefixer-stylus -c -o styles/index.css",
+    "storybook-deploy": "npm run storybook-build && storybook-to-ghpages"
   }
 }
