@@ -26,18 +26,42 @@ npm install --save @synapsestudios/react-drop-n-crop
 import DropNCrop from '@synapsestudios/react-drop-n-crop';
 ```
 
-#### Using JSX
+#### Using inside an ES6 `Class` with React `setState`
 ```jsx
-<DropNCrop
-  onChange={(file) => {
-    console.log(file);
-  }}
-/>
+import React, { Component } from 'react';
+import DropNCrop from '@synapsestudios/react-drop-n-crop';
+
+class SetStateExample extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      result: null,
+      filename: null,
+      filetype: null,
+      src: null,
+      error: null,
+    };
+  }
+
+  onChange = value => this.setState(value);
+
+  render() {
+    return <DropNCrop onChange={this.onChange} value={this.state} />;
+  }
+}
+
+export default SetStateExample;
+```
+
+#### Using inside a ReduxForm (v6) Field
+```
+// TODO: Add simple example to storybook + readme
 ```
 
 ### Importing CSS
 ```js
-// Minified, autoprefixed css, 
+// Minified, autoprefixed css
 import '@synapsestudios/react-drop-n-crop/lib/react-drop-n-crop.min.css';
 
 // Not-minified, not-autoprefixed css
@@ -53,14 +77,29 @@ If you are using Stylus you can import the .styl file into your build:
 
 ## API
 
-### `Props`
+### Required `Props`
 
 #### onChange: (required)
 
-`onChange` is the callback function necessary to update the parent component with the final cropped image file. `onChange` receives a `File` object as an argument.
+`onChange` is the callback `function` necessary to update the parent component with the final cropped image file. `onChange` receives a `File` object as an argument.
 ```js
 onChange: PropTypes.func.isRequired,
 ```
+
+#### value: (required)
+
+`onChange` is the callback `function` necessary to update the parent component with the final cropped image file. `onChange` receives a `File` object as an argument.
+```js
+value: PropTypes.shape({
+  result: PropTypes.any, // Resulting DataURL from Cropper.js crop box
+  filename: PropTypes.any, // Original filename from uploaded file
+  filetype: PropTypes.any, // Original MIME type from uploaded file
+  src: PropTypes.any, // Original DataURL from the FileReader.result
+  error: PropTypes.any, // Error returned from fileSize/fileType validators
+}).isRequired,
+```
+
+### Optional `Props`
 
 #### canvasHeight:
 

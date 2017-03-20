@@ -4,7 +4,7 @@ import { storiesOf } from '@kadira/storybook';
 import SetStateExample from './SetStateExample';
 import '../../styles/index.css';
 
-storiesOf('<DropNCrop />', module).add('setState Example', () => (
+storiesOf('<DropNCrop />', module).add('setState Example (default)', () => (
   <div>
     <h1>react-drop-n-crop</h1>
     <SetStateExample />
