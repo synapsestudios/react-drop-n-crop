@@ -26,10 +26,27 @@ npm install --save @synapsestudios/react-drop-n-crop
 import DropNCrop from '@synapsestudios/react-drop-n-crop';
 ```
 
-#### Using inside an ES6 `Class` with React `setState`
+#### Importing CSS
+```js
+// Minified, autoprefixed css
+import '@synapsestudios/react-drop-n-crop/lib/react-drop-n-crop.min.css';
+
+// Not-minified, not-autoprefixed css
+import '@synapsestudios/react-drop-n-crop/lib/react-drop-n-crop.css';
+```
+
+#### Using Stylus
+If you are using Stylus you can import the .styl file into your build:
+```styl
+@import '@synapsestudios/react-drop-n-crop/lib/react-drop-n-crop.styl';
+```
+! See the [Stylus Variables](#stylus-variables) section below for variables/details.
+
+#### Using with an ES6 `Class` and React Component State
 ```jsx
 import React, { Component } from 'react';
 import DropNCrop from '@synapsestudios/react-drop-n-crop';
+import '@synapsestudios/react-drop-n-crop/lib/react-drop-n-crop.min.css';
 
 class SetStateExample extends Component {
   constructor(props) {
@@ -54,26 +71,10 @@ class SetStateExample extends Component {
 export default SetStateExample;
 ```
 
-#### Using inside a ReduxForm (v6) Field
+#### Using with a ReduxForm (v6) `Field` Component
 ```
 // TODO: Add simple example to storybook + readme
 ```
-
-### Importing CSS
-```js
-// Minified, autoprefixed css
-import '@synapsestudios/react-drop-n-crop/lib/react-drop-n-crop.min.css';
-
-// Not-minified, not-autoprefixed css
-import '@synapsestudios/react-drop-n-crop/lib/react-drop-n-crop.css';
-```
-
-### Using Stylus
-If you are using Stylus you can import the .styl file into your build:
-```styl
-@import '@synapsestudios/react-drop-n-crop/lib/react-drop-n-crop.styl';
-```
-! See the [Stylus Variables](#stylus-variables) section below for variables/details.
 
 ## API
 
