@@ -15,7 +15,7 @@ export default function dataUrlToFile(dataUrl, filename) {
 
   // write the bytes of the string to a typed array
   const ia = new Uint8Array(byteString.length);
-  for (let i = 0; i < byteString.length; i++) { // eslint-disable-line
+  for (let i = 0; i < byteString.length; i++) {
     ia[i] = byteString.charCodeAt(i);
   }
 

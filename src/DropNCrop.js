@@ -5,22 +5,27 @@ import Cropper from 'react-cropper';
 import Dropzone from 'react-dropzone';
 
 import bytesToSize from './util/bytesToSize';
-import dataUrlToFile from './util/dataUrlToFile';
 import fileSizeLessThan from './util/fileSizeLessThan';
 import fileType from './util/fileType';
 
 class DropNCrop extends Component {
   static propTypes = {
-    allowedFileTypes: PropTypes.array, // eslint-disable-line
+    allowedFileTypes: PropTypes.array,
     canvasHeight: PropTypes.string,
     canvasWidth: PropTypes.string,
     className: PropTypes.string,
-    cropperOptions: PropTypes.object, // eslint-disable-line
+    cropperOptions: PropTypes.object,
     instructions: PropTypes.node,
     maxFileSize: PropTypes.number,
-    onSave: PropTypes.func.isRequired,
-    onCancel: PropTypes.func,
-  }
+    onChange: PropTypes.func.isRequired,
+    value: PropTypes.shape({
+      result: PropTypes.any,
+      filename: PropTypes.any,
+      filetype: PropTypes.any,
+      src: PropTypes.any,
+      error: PropTypes.any,
+    }).isRequired,
+  };
 
   static defaultProps = {
     allowedFileTypes: ['image/jpeg', 'image/jpg', 'image/png'],
@@ -32,71 +37,35 @@ class DropNCrop extends Component {
       autoCropArea: 1,
     },
     maxFileSize: 3145728,
-  }
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      result: null,
-      filename: null,
-      filetype: null,
-      src: null,
-      error: null,
-    };
-  }
-
-  onCancel = (e) => {
-    e.preventDefault();
-
-    this.setState({
-      result: null,
-      filename: null,
-      filetype: null,
-      src: null,
-      error: null,
-    });
-
-    if (this.props.onCancel) {
-      return this.props.onCancel();
-    }
-
-    return null;
-  }
-
-  onSave = (e) => {
-    e.preventDefault();
-
-    const { result, filename } = this.state;
-    let file = null;
-
-    if (result && filename) {
-      file = dataUrlToFile(result, filename);
-    }
-
-    if (this.props.onSave) {
-      return this.props.onSave(file);
-    }
-
-    return null;
-  }
+  };
 
   onCrop = () => {
+    const {
+      value,
+      onChange,
+    } = this.props;
+
     if (typeof this.cropperRef.getCroppedCanvas() !== 'undefined') {
-      this.setState({
-        result: this.cropperRef.getCroppedCanvas().toDataURL(this.state.filetype),
+      onChange({
+        ...value,
+        result: this.cropperRef.getCroppedCanvas().toDataURL(value.filetype),
       });
     }
-  }
+  };
 
-  onDrop = (files) => {
-    const fileSizeValidation = fileSizeLessThan(this.props.maxFileSize)(files);
-    const fileTypeValidation = fileType(this.props.allowedFileTypes)(files);
+  onDrop = files => {
+    const {
+      onChange,
+      maxFileSize,
+      allowedFileTypes,
+    } = this.props;
+    const fileSizeValidation = fileSizeLessThan(maxFileSize)(files);
+    const fileTypeValidation = fileType(allowedFileTypes)(files);
 
     if (fileSizeValidation.isValid && fileTypeValidation.isValid) {
       const reader = new FileReader();
       reader.onload = () => {
-        this.setState({
+        onChange({
           src: reader.result,
           filename: files[0].name,
           filetype: files[0].type,
@@ -106,87 +75,83 @@ class DropNCrop extends Component {
       };
       reader.readAsDataURL(files[0]);
     } else {
-      // TODO: Update error state to be an array to handle both messages if necessary
-      if (!fileTypeValidation.isValid) { // eslint-disable-line
-        this.setState({
-          error: fileTypeValidation.message,
-        });
-      } else if (!fileSizeValidation.isValid) {
-        this.setState({
-          error: fileSizeValidation.message,
-        });
-      }
+      onChange({
+        error: !fileTypeValidation.isValid
+          ? fileTypeValidation.message
+          : !fileSizeValidation.isValid ? fileSizeValidation.message : null, // TODO: Update error state to be an array to handle both messages if necessary
+      });
     }
-  }
+  };
 
   render() {
-    const imageCropper = {
+    const {
+      canvasHeight,
+      canvasWidth,
+      className,
+      cropperOptions,
+      instructions,
+      allowedFileTypes,
+      maxFileSize,
+      value,
+    } = this.props;
+
+    const dropNCropClasses = {
       'drop-n-crop': true,
-      [`${this.props.className}`]: this.props.className,
+      [`${className}`]: className,
     };
 
     return (
-      <div className={classNames(imageCropper)}>
-        {this.state.src ? (
-          <Cropper
-            ref={(input) => { this.cropperRef = input; }}
-            src={this.state.src}
-            style={{
-              height: this.props.canvasHeight,
-              width: this.props.canvasWidth,
-            }}
-            cropend={this.onCrop} // Use cropend to reduce setState lag while cropping
-            {...this.props.cropperOptions}
-          />
-        ) : (
-          <Dropzone
-            className="dropzone"
-            activeClassName="dropzone--active"
-            onDrop={this.onDrop}
-            style={{
-              height: this.props.canvasHeight,
-              width: this.props.canvasWidth,
-            }}
-          >
-            <div key="dropzone-instructions">
-              {!this.props.instructions ? (
-                <div className="dropzone-instructions">
-                  <div className="dropzone-instructions--main">Drag-n-drop a file or click to add an image</div>
-                  <div className="dropzone-instructions--sub">Accepted file types: .jpg, .jpeg, .png</div>
-                  <div className="dropzone-instructions--sub">Max file size: {bytesToSize(this.props.maxFileSize)}</div>
-                </div>
-              ) : this.props.instructions}
-            </div>
-            {this.state.error ? (
-              <div
-                key="dropzone-validation"
-                className="dropzone-validation"
-              >
-                {this.state.error}
+      <div className={classNames(dropNCropClasses)}>
+        {value && value.src
+          ? <Cropper
+              ref={input => {
+                this.cropperRef = input;
+              }}
+              src={value && value.src}
+              style={{
+                height: canvasHeight,
+                width: canvasWidth,
+              }}
+              cropend={this.onCrop} // Only use the cropend method- it will reduce the callback/setState lag while cropping
+              {...cropperOptions}
+            />
+          : <Dropzone
+              className="dropzone"
+              activeClassName="dropzone--active"
+              onDrop={this.onDrop}
+              style={{
+                height: canvasHeight,
+                width: canvasWidth,
+              }}
+            >
+              <div key="dropzone-instructions">
+                {!instructions
+                  ? <div className="dropzone-instructions">
+                      <div className="dropzone-instructions--main">
+                        Drag-n-drop a file or click to add an image
+                      </div>
+                      <div className="dropzone-instructions--sub">
+                        Accepted file types:
+                        {' '}
+                        {allowedFileTypes
+                          .map(mimeType => `.${mimeType.split('/')[1]}`)
+                          .join(', ')}
+                      </div>
+                      <div className="dropzone-instructions--sub">
+                        Max file size: {bytesToSize(maxFileSize)}
+                      </div>
+                    </div>
+                  : instructions}
               </div>
-            ) : null}
-          </Dropzone>
-        )}
-        <div className="drop-n-crop__controls">
-          {this.state.src ? (
-            <button
-              type="button"
-              className="button button--save"
-              onClick={this.onSave}
-            >
-              Save & Upload
-            </button>
-          ) : null}
-          {this.state.src ? (
-            <button
-              type="button"
-              className="button button--cancel"
-              onClick={this.onCancel}
-            >
-              Cancel
-            </button>
-          ) : null}
-        </div>
+              {value && value.error
+                ? <div
+                    key="dropzone-validation"
+                    className="dropzone-validation"
+                  >
+                    {value && value.error}
+                  </div>
+                : null}
+            </Dropzone>}
       </div>
     );
   }

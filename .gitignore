@@ -5,7 +5,8 @@
 
 # production
 /lib
-.out
+/.out
+/styles/*.css
 
 # misc
 .DS_Store

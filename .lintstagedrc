@@ -1,0 +1,7 @@
+{
+  "{src, storybook}/**/*.js": [
+    "precommit-lint",
+    "precommit-prettier",
+    "git add"
+  ]
+}

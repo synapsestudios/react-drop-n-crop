@@ -1,34 +1,45 @@
 {
   "name": "@synapsestudios/react-drop-n-crop",
-  "version": "0.0.1",
-  "description": "A combined implementation of React-Dropzone and React-Cropper",
-  "main": "lib/index.js",
+  "version": "0.0.4",
+  "description": "A combined implementation of react-dropzone and react-cropper",
   "repository": {
     "type": "git",
-    "url": "git@github.com:synapsestudios/react-drop-n-crop.git"
+    "url": "https://github.com/synapsestudios/react-drop-n-crop.git"
   },
+  "bugs": {
+    "url": "https://github.com/synapsestudios/react-drop-n-crop/issues"
+  },
+  "author": "Synapse Studios",
+  "license": "MIT",
+  "main": "lib/index.js",
   "dependencies": {
     "classnames": "2.2.5",
     "lodash.includes": "4.3.0",
     "react-cropper": "0.10.0",
-    "react-dropzone": "3.10.0"
+    "react-dropzone": "3.12.2"
   },
   "devDependencies": {
-    "@kadira/storybook": "^2.21.0",
-    "@kadira/storybook-deployer": "^1.2.0",
-    "babel-cli": "^6.18.0",
-    "babel-core": "^6.18.2",
-    "babel-eslint": "^7.1.1",
-    "babel-plugin-transform-class-properties": "^6.23.0",
-    "babel-plugin-transform-object-rest-spread": "^6.19.0",
-    "babel-plugin-transform-react-jsx": "^6.8.0",
-    "babel-preset-es2015": "^6.18.0",
-    "eslint": "^3.11.1",
-    "eslint-config-airbnb": "^13.0.0",
-    "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jsx-a11y": "^2.2.3",
-    "eslint-plugin-react": "^6.7.1",
-    "stylus": "^0.54.5"
+    "@kadira/storybook": "2.35.3",
+    "@kadira/storybook-deployer": "1.2.0",
+    "autoprefixer-stylus": "^0.13.0",
+    "babel-cli": "6.24.0",
+    "babel-eslint": "7.1.1",
+    "babel-plugin-remove-comments": "2.0.0",
+    "babel-plugin-transform-class-properties": "6.23.0",
+    "babel-plugin-transform-object-rest-spread": "6.23.0",
+    "babel-plugin-transform-react-jsx": "6.23.0",
+    "babel-preset-es2015": "6.24.0",
+    "eslint": "3.16.1",
+    "eslint-config-react-app": "0.6.2",
+    "eslint-loader": "1.6.3",
+    "eslint-plugin-flowtype": "2.21.0",
+    "eslint-plugin-import": "2.0.1",
+    "eslint-plugin-jsx-a11y": "4.0.0",
+    "eslint-plugin-react": "6.4.1",
+    "husky": "^0.13.2",
+    "lint-staged": "3.4.0",
+    "prettier": "0.22.0",
+    "stylus": "0.54.5"
   },
   "peerDependencies": {
     "react": "^15.0.0",
@@ -36,14 +47,18 @@
   },
   "scripts": {
     "clean": "rm -rf lib && rm -rf .out",
-    "build": "npm run clean && babel src --out-dir lib && stylus src/index.styl -o lib/react-drop-n-crop.css && cp src/index.styl lib/react-drop-n-crop.styl",
+    "build": "npm run clean && babel src -d lib && npm run build-stylus",
+    "build-stylus": "stylus styles/index.styl -o lib/react-drop-n-crop.css && stylus styles/index.styl -c -u autoprefixer-stylus -o lib/react-drop-n-crop.min.css && cp styles/index.styl lib/react-drop-n-crop.styl",
     "lint": "eslint src",
+    "precommit": "lint-staged",
+    "precommit-lint": "eslint",
+    "precommit-prettier": "prettier --single-quote --trailing-comma all --write",
     "prepublish": "npm run lint && npm run build",
-    "start": "npm run start-demo",
-    "start-demo": "stylus -w src/index.styl -o src/index.css & start-storybook -p 9009 -s demo",
-    "build-demo": "stylus src/index.styl -o src/index.css && build-storybook -s demo -o .out",
-    "deploy-demo": "npm run build && storybook-to-ghpages"
-  },
-  "author": "Synapse Studios",
-  "license": "MIT"
+    "start": "npm run storybook",
+    "storybook": "npm run storybook-watch-stylus & start-storybook -p 5000 -s storybook",
+    "storybook-watch-stylus": "stylus -w styles/index.styl -u autoprefixer-stylus -c -o styles/index.css",
+    "storybook-build": "npm run storybook-build-stylus && build-storybook -s storybook -o .out",
+    "storybook-build-stylus": "stylus styles/index.styl -u autoprefixer-stylus -c -o styles/index.css",
+    "storybook-deploy": "npm run storybook-build && storybook-to-ghpages"
+  }
 }
