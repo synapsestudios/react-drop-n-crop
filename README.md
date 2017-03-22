@@ -49,19 +49,17 @@ import DropNCrop from '@synapsestudios/react-drop-n-crop';
 import '@synapsestudios/react-drop-n-crop/lib/react-drop-n-crop.min.css';
 
 class SetStateExample extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    result: null,
+    filename: null,
+    filetype: null,
+    src: null,
+    error: null,
+  };
 
-    this.state = {
-      result: null,
-      filename: null,
-      filetype: null,
-      src: null,
-      error: null,
-    };
-  }
-
-  onChange = value => this.setState(value);
+  onChange = value => {
+    this.setState(value);
+  };
 
   render() {
     return <DropNCrop onChange={this.onChange} value={this.state} />;
