@@ -5,5 +5,17 @@ import SetStateExample from './SetStateExample';
 import '../../styles/index.css';
 
 storiesOf('<DropNCrop />', module).add('setState Example (default)', () => (
-  <SetStateExample />
+  <div>
+    <style>
+      {
+        `html {
+        box-sizing: border-box;
+      }
+      *, *:before, *:after {
+        box-sizing: inherit;
+      }`
+      }
+    </style>
+    <SetStateExample />
+  </div>
 ));
