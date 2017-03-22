@@ -58,7 +58,6 @@ class SetStateExample extends Component {
   };
 
   onChange = value => {
-    action('onChange')(value); // Log to storybook's "action-logger"
     this.setState(value);
   };
 
