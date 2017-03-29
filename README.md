@@ -69,32 +69,36 @@ class SetStateExample extends Component {
 export default SetStateExample;
 ```
 
+<!--
 #### Using with a ReduxForm (v6) `Field` Component
 ```
 // TODO: Add simple example to storybook + readme
 ```
+-->
 
 ## API
 
 ### Required `Props`
 
+DropNCrop is built as a [controlled component](https://facebook.github.io/react/docs/forms.html#controlled-components). The following props *must* be supplied to the component:
+
 #### onChange: (required)
 
-`onChange` is the callback `function` necessary to update the parent component with the final cropped image file. `onChange` receives a `File` object as an argument.
+`onChange` is the callback `function` invoked when an image is dropped or cropped. `onChange` returns an object (in the shape of `value` below).
 ```js
 onChange: PropTypes.func.isRequired,
 ```
 
 #### value: (required)
 
-`onChange` is the callback `function` necessary to update the parent component with the final cropped image file. `onChange` receives a `File` object as an argument.
+`value` is the `object` passed back from the `onChange` function. It must be in the following shape:
 ```js
 value: PropTypes.shape({
-  result: PropTypes.any, // Resulting DataURL from Cropper.js crop box
-  filename: PropTypes.any, // Original filename from uploaded file
-  filetype: PropTypes.any, // Original MIME type from uploaded file
-  src: PropTypes.any, // Original DataURL from the FileReader.result
-  error: PropTypes.any, // Error returned from fileSize/fileType validators
+  result: PropTypes.string, // Resulting DataURL from Cropper.js crop box
+  filename: PropTypes.string, // Original filename from uploaded file
+  filetype: PropTypes.string, // Original MIME type from uploaded file
+  src: PropTypes.string, // Original DataURL from the FileReader.result
+  error: PropTypes.string, // Error returned from fileSize/fileType validators
 }).isRequired,
 ```
 

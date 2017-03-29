@@ -19,11 +19,11 @@ class DropNCrop extends Component {
     maxFileSize: PropTypes.number,
     onChange: PropTypes.func.isRequired,
     value: PropTypes.shape({
-      result: PropTypes.any,
-      filename: PropTypes.any,
-      filetype: PropTypes.any,
-      src: PropTypes.any,
-      error: PropTypes.any,
+      result: PropTypes.string,
+      filename: PropTypes.string,
+      filetype: PropTypes.string,
+      src: PropTypes.string,
+      error: PropTypes.string,
     }).isRequired,
   };
 
