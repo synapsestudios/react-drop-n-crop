@@ -8,12 +8,17 @@ storiesOf('<DropNCrop />', module).add('setState Example (default)', () => (
   <div>
     <style>
       {
-        `html {
-        box-sizing: border-box;
-      }
-      *, *:before, *:after {
-        box-sizing: inherit;
-      }`
+        `
+        html {
+          box-sizing: border-box;
+        }
+        *, *:before, *:after {
+          box-sizing: inherit;
+        }
+        body {
+          font-family: -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
+        }
+      `
       }
     </style>
     <SetStateExample />
