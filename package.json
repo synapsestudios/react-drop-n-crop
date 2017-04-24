@@ -33,11 +33,11 @@
     "storybook-deploy": "npm run storybook-build && storybook-to-ghpages"
   },
   "dependencies": {
-    "classnames": "2.2.5",
-    "lodash.includes": "4.3.0",
+    "classnames": "^2.2.5",
+    "lodash.includes": "^4.3.0",
     "prop-types": "^15.5.8",
-    "react-cropper": "0.10.0",
-    "react-dropzone": "3.12.2"
+    "react-cropper": "^0.12.0",
+    "react-dropzone": "^3.13.0"
   },
   "devDependencies": {
     "@kadira/storybook": "^2.35.3",
@@ -62,7 +62,7 @@
     "stylus": "^0.54.5"
   },
   "peerDependencies": {
-    "react": "^15.0.0",
-    "react-dom": "^15.0.0"
+    "react": "^15.3.0",
+    "react-dom": "^15.3.0"
   }
 }
