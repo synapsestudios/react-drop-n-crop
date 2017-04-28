@@ -1,7 +1,7 @@
 {
   "{src, storybook}/**/*.js": [
-    "precommit-lint",
-    "precommit-prettier",
+    "eslint",
+    "prettier --single-quote --trailing-comma es5 --write",
     "git add"
   ]
 }

@@ -1,5 +1,6 @@
 /* global FileReader */
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Cropper from 'react-cropper';
 import Dropzone from 'react-dropzone';
