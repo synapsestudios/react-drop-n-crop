@@ -104,6 +104,18 @@ value: PropTypes.shape({
 
 ### Optional `Props`
 
+### customMessage:
+`customMessage` is an `object` for customizing how text is displayed on the component. It uses the following shape:
+```js
+customMessage: PropTypes.shape({
+  instructions: PropTypes.string, // default: 'Drag-n-drop a file or click to add an image'
+  acceptedFileTypes: PropTypes.string, // default: 'Accepted file types: '
+  maxFileSize: PropTypes.string, // default: 'Max file size: '
+  fileTypeErrorMessage: PropTypes.string, // default: `File size must be less than $BYTES`
+  fileSizeErrorMessage: PropTypes.string, // default: 'Invalid file type'
+})
+```
+
 #### canvasHeight:
 
 `canvasHeight` is a `string` for the container inline style `height` property.
