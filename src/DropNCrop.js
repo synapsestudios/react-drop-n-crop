@@ -16,6 +16,13 @@ class DropNCrop extends Component {
     canvasWidth: PropTypes.string,
     className: PropTypes.string,
     cropperOptions: PropTypes.object,
+    customMessage: PropTypes.shape({
+      instructions: PropTypes.string,
+      acceptedFileTypes: PropTypes.string,
+      maxFileSize: PropTypes.string,
+      fileTypeErrorMessage: PropTypes.string,
+      fileSizeErrorMessage: PropTypes.string,
+    }),
     instructions: PropTypes.node,
     maxFileSize: PropTypes.number,
     onChange: PropTypes.func,
@@ -36,6 +43,11 @@ class DropNCrop extends Component {
       guides: true,
       viewMode: 0,
       autoCropArea: 1,
+    },
+    customMessage: {
+      instructions: 'Drag-n-drop a file or click to add an image',
+      acceptedFileTypes: 'Accepted file types: ',
+      maxFileSize: 'Max file size: ',
     },
     maxFileSize: 3145728,
   };
@@ -59,9 +71,13 @@ class DropNCrop extends Component {
       onChange,
       maxFileSize,
       allowedFileTypes,
+      customMessage,
     } = this.props;
-    const fileSizeValidation = fileSizeLessThan(maxFileSize)(files);
-    const fileTypeValidation = fileType(allowedFileTypes)(files);
+    const fileSizeErrorMessage = customMessage.fileSizeErrorMessage 
+      ? customMessage.fileSizeErrorMessage + bytesToSize(maxFileSize) 
+      : null;
+    const fileSizeValidation = fileSizeLessThan(maxFileSize, fileSizeErrorMessage)(files);
+    const fileTypeValidation = fileType(allowedFileTypes, customMessage.fileTypeErrorMessage)(files);
 
     if (fileSizeValidation.isValid && fileTypeValidation.isValid) {
       const reader = new FileReader();
@@ -90,6 +106,7 @@ class DropNCrop extends Component {
       canvasWidth,
       className,
       cropperOptions,
+      customMessage,
       instructions,
       allowedFileTypes,
       maxFileSize,
@@ -129,17 +146,17 @@ class DropNCrop extends Component {
                 {!instructions
                   ? <div className="dropzone-instructions">
                       <div className="dropzone-instructions--main">
-                        Drag-n-drop a file or click to add an image
+                        {customMessage.instructions}
                       </div>
                       <div className="dropzone-instructions--sub">
-                        Accepted file types:
+                        {customMessage.acceptedFileTypes}
                         {' '}
                         {allowedFileTypes
                           .map(mimeType => `.${mimeType.split('/')[1]}`)
                           .join(', ')}
                       </div>
                       <div className="dropzone-instructions--sub">
-                        Max file size: {bytesToSize(maxFileSize)}
+                        {customMessage.maxFileSize} {bytesToSize(maxFileSize)}
                       </div>
                     </div>
                   : instructions}
