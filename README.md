@@ -111,7 +111,7 @@ customMessage: PropTypes.shape({
   instructions: PropTypes.string, // default: 'Drag-n-drop a file or click to add an image'
   acceptedFileTypes: PropTypes.string, // default: 'Accepted file types: '
   maxFileSize: PropTypes.string, // default: 'Max file size: '
-  fileTypeErrorMessage: PropTypes.string, // default: `File size must be less than $BYTES`
+  fileTypeErrorMessage: PropTypes.string, // default: 'File size must be less than $BYTES'. maxFileSize value can be referenced with '$BYTES'
   fileSizeErrorMessage: PropTypes.string, // default: 'Invalid file type'
 })
 ```
