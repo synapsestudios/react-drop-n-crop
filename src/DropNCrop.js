@@ -53,7 +53,10 @@ class DropNCrop extends Component {
   };
 
   onCrop = () => {
-    const { value, onChange } = this.props;
+    const {
+      value,
+      onChange,
+    } = this.props;
 
     if (typeof this.cropperRef.getCroppedCanvas() !== 'undefined') {
       onChange({
@@ -70,20 +73,11 @@ class DropNCrop extends Component {
       allowedFileTypes,
       customMessage,
     } = this.props;
-    const fileSizeErrorMessage = customMessage.fileSizeErrorMessage
-      ? customMessage.fileSizeErrorMessage.replace(
-          '$BYTES',
-          bytesToSize(maxFileSize)
-        )
+    const fileSizeErrorMessage = customMessage.fileSizeErrorMessage 
+      ? customMessage.fileSizeErrorMessage.replace('$BYTES',bytesToSize(maxFileSize))
       : null;
-    const fileSizeValidation = fileSizeLessThan(
-      maxFileSize,
-      fileSizeErrorMessage
-    )(files);
-    const fileTypeValidation = fileType(
-      allowedFileTypes,
-      customMessage.fileTypeErrorMessage
-    )(files);
+    const fileSizeValidation = fileSizeLessThan(maxFileSize, fileSizeErrorMessage)(files);
+    const fileTypeValidation = fileType(allowedFileTypes, customMessage.fileTypeErrorMessage)(files);
 
     if (fileSizeValidation.isValid && fileTypeValidation.isValid) {
       const reader = new FileReader();
@@ -99,10 +93,10 @@ class DropNCrop extends Component {
       reader.readAsDataURL(files[0]);
     } else {
       const errors = [];
-      if (!fileTypeValidation.isValid) errors.push(fileTypeValidation.message);
-      if (!fileSizeValidation.isValid) errors.push(fileSizeValidation.message);
+      if(!fileTypeValidation.isValid) errors.push(fileTypeValidation.message);
+      if(!fileSizeValidation.isValid) errors.push(fileSizeValidation.message);
       onChange({
-        error: errors,
+        error: errors
       });
     }
   };
@@ -127,57 +121,59 @@ class DropNCrop extends Component {
 
     return (
       <div className={classNames(dropNCropClasses)}>
-        {value && value.src ? (
-          <Cropper
-            ref={input => {
-              this.cropperRef = input;
-            }}
-            src={value && value.src}
-            style={{
-              height: canvasHeight,
-              width: canvasWidth,
-            }}
-            cropend={this.onCrop} // Only use the cropend method- it will reduce the callback/setState lag while cropping
-            {...cropperOptions}
-          />
-        ) : (
-          <Dropzone
-            className="dropzone"
-            activeClassName="dropzone--active"
-            onDrop={this.onDrop}
-            style={{
-              height: canvasHeight,
-              width: canvasWidth,
-            }}
-          >
-            <div key="dropzone-instructions">
-              {!instructions ? (
-                <div className="dropzone-instructions">
-                  <div className="dropzone-instructions--main">
-                    {customMessage.instructions}
-                  </div>
-                  <div className="dropzone-instructions--sub">
-                    {customMessage.acceptedFileTypes}{' '}
-                    {allowedFileTypes
-                      .map(mimeType => `.${mimeType.split('/')[1]}`)
-                      .join(', ')}
-                  </div>
-                  <div className="dropzone-instructions--sub">
-                    {customMessage.maxFileSize} {bytesToSize(maxFileSize)}
-                  </div>
-                </div>
-              ) : (
-                instructions
-              )}
-            </div>
-            {value && value.error ? (
-              <div key="dropzone-validation" className="dropzone-validation">
-                <p>{value && value.error[0]}</p>
-                {value.error[1] ? <p>{value && value.error[1]}</p> : null}
+        {value && value.src
+          ? <Cropper
+              ref={input => {
+                this.cropperRef = input;
+              }}
+              src={value && value.src}
+              style={{
+                height: canvasHeight,
+                width: canvasWidth,
+              }}
+              cropend={this.onCrop} // Only use the cropend method- it will reduce the callback/setState lag while cropping
+              {...cropperOptions}
+            />
+          : <Dropzone
+              className="dropzone"
+              activeClassName="dropzone--active"
+              onDrop={this.onDrop}
+              style={{
+                height: canvasHeight,
+                width: canvasWidth,
+              }}
+            >
+              <div key="dropzone-instructions">
+                {!instructions
+                  ? <div className="dropzone-instructions">
+                      <div className="dropzone-instructions--main">
+                        {customMessage.instructions}
+                      </div>
+                      <div className="dropzone-instructions--sub">
+                        {customMessage.acceptedFileTypes}
+                        {' '}
+                        {allowedFileTypes
+                          .map(mimeType => `.${mimeType.split('/')[1]}`)
+                          .join(', ')}
+                      </div>
+                      <div className="dropzone-instructions--sub">
+                        {customMessage.maxFileSize} {bytesToSize(maxFileSize)}
+                      </div>
+                    </div>
+                  : instructions}
               </div>
-            ) : null}
-          </Dropzone>
-        )}
+              {value && value.error
+                ? <div
+                    key="dropzone-validation"
+                    className="dropzone-validation"
+                  >
+                    <p>{value && value.error[0]}</p>
+                    {value.error[1]
+                      ? <p>{value && value.error[1]}</p>
+                      :null}
+                  </div>
+                : null}
+            </Dropzone>}
       </div>
     );
   }
