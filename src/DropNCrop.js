@@ -31,7 +31,7 @@ class DropNCrop extends Component {
       filename: PropTypes.string,
       filetype: PropTypes.string,
       src: PropTypes.string,
-      error: PropTypes.string,
+      error: PropTypes.array,
     }),
   };
 
@@ -98,10 +98,11 @@ class DropNCrop extends Component {
       };
       reader.readAsDataURL(files[0]);
     } else {
+      const errors = [];
+      if (!fileTypeValidation.isValid) errors.push(fileTypeValidation.message);
+      if (!fileSizeValidation.isValid) errors.push(fileSizeValidation.message);
       onChange({
-        error: !fileTypeValidation.isValid
-          ? fileTypeValidation.message
-          : !fileSizeValidation.isValid ? fileSizeValidation.message : null, // TODO: Update error state to be an array to handle both messages if necessary
+        error: errors,
       });
     }
   };
@@ -171,7 +172,8 @@ class DropNCrop extends Component {
             </div>
             {value && value.error ? (
               <div key="dropzone-validation" className="dropzone-validation">
-                {value && value.error}
+                <p>{value && value.error[0]}</p>
+                {value.error[1] ? <p>{value && value.error[1]}</p> : null}
               </div>
             ) : null}
           </Dropzone>

@@ -98,7 +98,7 @@ value: PropTypes.shape({
   filename: PropTypes.string, // Original filename from uploaded file
   filetype: PropTypes.string, // Original MIME type from uploaded file
   src: PropTypes.string, // Original DataURL from the FileReader.result
-  error: PropTypes.string, // Error returned from fileSize/fileType validators
+  error: PropTypes.array, // Error returned from fileSize/fileType validators
 }).isRequired,
 ```
 
