@@ -167,10 +167,7 @@ class DropNCrop extends Component {
                     key="dropzone-validation"
                     className="dropzone-validation"
                   >
-                    <p>{value && value.error[0]}</p>
-                    {value.error[1]
-                      ? <p>{value && value.error[1]}</p>
-                      :null}
+                    {value && value.error && value.error.map(error => <p>{error}</p>)}
                   </div>
                 : null}
             </Dropzone>}
